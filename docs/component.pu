@@ -1,0 +1,18 @@
+@startuml
+skinparam linetype ortho
+title User Interface Model 
+
+Component <|--- Label
+Component <|--- Button
+Component <|--- Textbox
+Component <|--- Dropdown
+Component <|--- Listbox
+
+Component <|--- Layout
+Layout *--- Component
+
+Layout <|--- GridLayout
+Layout <|--- HBoxLayout
+Layout <|--- VBoxLayout
+
+@enduml
