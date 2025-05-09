@@ -4,24 +4,23 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.control.Button;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class Main extends Application {
   public void start(Stage stage) {
-    VBox root = new VBox();
-    Label l = new Label("Fuck Figma & Fuck Javascript");
-    Button b = new Button("Exit");
-
-    b.setOnAction(_t -> Platform.exit());
-
-    root.getChildren().addAll(l, b);
-    Scene s = new Scene(new StackPane(root), 140, 140);
-    stage.setScene(s);
-    stage.setTitle("FigmaKiller");
-    stage.show();
+    try {
+      Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
+      stage.setScene(new Scene(root));
+      stage.setTitle("FigmaKiller");
+      stage.show();
+    } catch (Exception e) {
+      System.err.println("[CRITICAL]: Failed to read Main.fxml, exiting");
+      e.printStackTrace();
+      Platform.exit();
+    }
   }
 
   public static void main(String[] args) {
