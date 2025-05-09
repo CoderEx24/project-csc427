@@ -1,0 +1,25 @@
+@startuml
+skinparam linetype ortho
+title Exporters
+
+interface Exporter {
+  +visit(Label)
+  +visit(Button)
+  +visit(Textbox)
+  +visit(Dropdown)
+  +visit(ListBox)
+  +visit(GridLayout)
+  +visit(HBoxLayout)
+  +visit(VBoxLayout)
+
+  +export()
+}
+
+class KivyExporter {
+  -filename: String
+  +KivyExporter(String filename)
+}
+
+Exporter <|--- KivyExporter
+@enduml
+
