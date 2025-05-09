@@ -4,7 +4,7 @@ title User Interface Model
 
 interface Component {
   +Component(Component parent)
-  +draw(): bool
+  +draw(GraphicContext): bool
   +addChild(String, Component): bool
   +removeChild(String): bool
   +getChild(String): Component
@@ -12,6 +12,8 @@ interface Component {
   +iterator(): ComponentIterator
   +setSize(float, float)
   +setPosition(float, float)
+  +getSize(): float[]
+  +getPosition(): float[]
 }
 
 interface Layout {
