@@ -30,6 +30,5 @@ public abstract class BasicComponent implements Component {
   public Component getParent() {
     return parent;
   }
-
 }
 

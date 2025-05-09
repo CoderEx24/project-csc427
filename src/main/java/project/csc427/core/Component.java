@@ -1,10 +1,10 @@
 package project.csc427.core;
 
-import javafx.scene.layout.Pane;
+import javafx.scene.canvas.GraphicsContext;
 
 public interface Component {
 
-  public boolean draw(Pane canvas);
+  public boolean draw(GraphicsContext gc);
 
   public default boolean addChild(String name, Component comp) {
     throw new UnsupportedOperationException();
