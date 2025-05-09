@@ -2,14 +2,73 @@
 skinparam linetype ortho
 title User Interface Model 
 
-Component <|--- Label
+interface Component {
+  +Component(Component parent)
+  +draw(): bool
+  +addChild(String, Component): bool
+  +removeChild(String): bool
+  +getChild(String): Component
+  +getParent(): Component
+  +iterator(): ComponentIterator
+  +setSize(float, float)
+  +setPosition(float, float)
+}
+
+interface Layout {
+  +layoutChildern(): bool
+}
+
+class Label {
+  -text: String
+  -font: Font
+  +setText(String)
+}
+
+class Button {
+  -text: String
+  -font: Font
+  +setText(String)
+}
+
+class Textbox {
+  -placeholder: String
+  +setPlaceholder(String)
+}
+
+class Dropdown {
+  -choices: List<String>
+  +setChoices(String)
+  +addChoice(String)
+}
+
+class Listbox {
+  -choices: List<String>
+  +setChoices(String)
+  +addChoice(String)
+}
+
+class GridLayout {
+
+}
+
+class HBoxLayout {
+  -children: List<Component>
+
+}
+
+class VBoxLayout {
+  -childern: List<Component>
+
+}
+
+Component <|---- Label
 Component <|--- Button
 Component <|--- Textbox
-Component <|--- Dropdown
-Component <|--- Listbox
+Component <|----- Dropdown
+Component <|----- Listbox
 
-Component <|--- Layout
-Layout *--- Component
+Component <|----- Layout
+Layout *---- Component
 
 Layout <|--- GridLayout
 Layout <|--- HBoxLayout
