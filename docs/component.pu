@@ -20,6 +20,20 @@ interface Layout {
   +layoutChildern(): bool
 }
 
+abstract class BasicComponent {
+  -width: float
+  -height: float
+  -x: float
+  -y: float
+  -parent: Component
+  +BasicComponent(Component parent)
+  +setSize(float, float)
+  +setPosition(float, float)
+  +getSize(): float[]
+  +getPosition(): float[]
+  +getParent(): Component
+}
+
 class Label {
   -text: String
   -font: Font
@@ -63,11 +77,13 @@ class VBoxLayout {
 
 }
 
-Component <|---- Label
-Component <|--- Button
-Component <|--- Textbox
-Component <|----- Dropdown
-Component <|----- Listbox
+Component <|.... BasicComponent
+
+BasicComponent <|---- Label
+BasicComponent <|--- Button
+BasicComponent <|--- Textbox
+BasicComponent <|----- Dropdown
+BasicComponent <|----- Listbox
 
 Component <|----- Layout
 Layout *---- Component
