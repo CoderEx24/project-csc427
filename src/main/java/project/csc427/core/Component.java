@@ -10,11 +10,11 @@ public interface Component {
     throw new UnsupportedOperationException();
   }
 
-  public default boolean removeChild(String name, Component comp) {
+  public default boolean removeChild(String name) {
     throw new UnsupportedOperationException();
   }
 
-  public default Component getChild(String name, Component comp) throws UnsupportedOperationException {
+  public default Component getChild(String name) {
     throw new UnsupportedOperationException();
   }
 
