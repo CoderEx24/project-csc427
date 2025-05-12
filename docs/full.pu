@@ -1,0 +1,159 @@
+@startuml
+' Modular Design Studio UML Diagram
+
+' Singleton: ThemeManager
+class ThemeManager {
+  -static ThemeManager instance
+  -Map<String, AbstractUIFactory> factories
+  +static getInstance(): ThemeManager
+  +getFactory(theme: String): AbstractUIFactory
+}
+
+' Abstract Factory
+interface AbstractUIFactory {
+  +createButton(): Button
+  +createTextbox(): Textbox
+  +createDropdown(): Dropdown
+}
+
+class WindowsUIFactory {
+  +createButton(): Button
+  +createTextbox(): Textbox
+  +createDropdown(): Dropdown
+}
+
+class MacUIFactory {
+  +createButton(): Button
+  +createTextbox(): Textbox
+  +createDropdown(): Dropdown
+}
+
+' Factory Method (ComponentFactory)
+interface ComponentFactory {
+  +createComponent(type: String): UIComponent
+}
+
+class ConcreteComponentFactory {
+  +createComponent(type: String): UIComponent
+}
+
+' Prototype
+interface UIComponent {
+  +clone(): UIComponent
+  +render(): void
+  +accept(visitor: Visitor): void
+}
+
+class Button {
+  -style: Style
+  +clone(): UIComponent
+  +render(): void
+  +accept(visitor: Visitor): void
+}
+
+class Textbox {
+  -style: Style
+  +clone(): UIComponent
+  +render(): void
+  +accept(visitor: Visitor): void
+}
+
+class Dropdown {
+  -style: Style
+  +clone(): UIComponent
+  +render(): void
+  +accept(visitor: Visitor): void
+}
+
+' Flyweight: Style
+class Style {
+  -font: String
+  -color: String
+  -size: int
+  +getFont(): String
+  +getColor(): String
+  +getSize(): int
+}
+
+class StyleFactory {
+  -styles: Map<String, Style>
+  +getStyle(font: String, color: String, size: int): Style
+}
+
+' Composite
+class Panel {
+  -components: List<UIComponent>
+  +addComponent(component: UIComponent): void
+  +removeComponent(component: UIComponent): void
+  +render(): void
+  +accept(visitor: Visitor): void
+}
+
+' Builder
+interface UIBuilder {
+  +setTheme(theme: String): UIBuilder
+  +addButton(): UIBuilder
+  +addTextbox(): UIBuilder
+  +addDropdown(): UIBuilder
+  +build(): Panel
+}
+
+class PanelBuilder {
+  -panel: Panel
+  -factory: AbstractUIFactory
+  +setTheme(theme: String): UIBuilder
+  +addButton(): UIBuilder
+  +addTextbox(): UIBuilder
+  +addDropdown(): UIBuilder
+  +build(): Panel
+}
+
+' Visitor
+interface Visitor {
+  +visit(button: Button): void
+  +visit(textbox: Textbox): void
+  +visit(dropdown: Dropdown): void
+  +visit(panel: Panel): void
+}
+
+class XMLExportVisitor {
+  +visit(button: Button): void
+  +visit(textbox: Textbox): void
+  +visit(dropdown: Dropdown): void
+  +visit(panel: Panel): void
+}
+
+' Iterator
+interface ComponentIterator {
+  +hasNext(): boolean
+  +next(): UIComponent
+}
+
+class PanelIterator {
+  -components: List<UIComponent>
+  -index: int
+  +hasNext(): boolean
+  +next(): UIComponent
+}
+
+' Relationships
+ThemeManager o--> AbstractUIFactory
+AbstractUIFactory <|.. WindowsUIFactory
+AbstractUIFactory <|.. MacUIFactory
+AbstractUIFactory --> UIComponent
+ComponentFactory --> UIComponent
+UIComponent <|.. Button
+UIComponent <|.. Textbox
+UIComponent <|.. Dropdown
+UIComponent --> Style
+StyleFactory --> Style
+UIComponent <|.. Panel
+Panel o--> UIComponent
+UIBuilder <|.. PanelBuilder
+PanelBuilder --> Panel
+PanelBuilder --> AbstractUIFactory
+UIComponent --> Visitor
+Visitor <|.. XMLExportVisitor
+Panel --> ComponentIterator
+ComponentIterator <|.. PanelIterator
+@enduml
