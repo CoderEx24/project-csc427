@@ -17,7 +17,7 @@ interface Component {
 }
 
 interface Layout {
-  +layoutChildern(): bool
+  +layout(): bool
 }
 
 abstract class BasicComponent {
@@ -79,14 +79,14 @@ class VBoxLayout {
 
 Component <|.... BasicComponent
 
-BasicComponent <|---- Label
+BasicComponent <|--- Label
 BasicComponent <|--- Button
 BasicComponent <|--- Textbox
-BasicComponent <|----- Dropdown
-BasicComponent <|----- Listbox
+BasicComponent <|--- Dropdown
+BasicComponent <|--- Listbox
 
-Component <|----- Layout
-Layout *---- Component
+Component <|--- Layout
+Layout *--- Component
 
 Layout <|--- GridLayout
 Layout <|--- HBoxLayout
