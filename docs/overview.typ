@@ -11,4 +11,5 @@ preview the resulting UI, export user interfaces into FXML and produce skeleton 
 wxFormBuilder is a program written in C++ that allows users to make user interfaces for wxWidgets.
 It has a similar functionality to SceneBuilder, allowing users to design user interfaces by dragging and dropping components and
 export the user interface into an XML file.
+It also allows exporting the UI into multiple languages, like C++, Lua, Python and PHP.
 
