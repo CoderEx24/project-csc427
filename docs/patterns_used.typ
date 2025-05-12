@@ -29,6 +29,12 @@ This isolation allows extending the code that operates on the UI model, while ke
 For each file type that's targeted, there's a concrete visitor class that implements exporting to that file type.
 
 == Share Resources using Flyweight Pattern
+Designing user interfaces needs resources like fonts, icons and images.
+The flyweight pattern is used to represent these resources.
+This allows efficient use of memory.
+Assets are represented as an object per asset,
+and UI elements refer to that instance of the asset in order to render itself.
+
 == Building a User Interface using Builder Pattern
 
 == Managing Global User Interface Properties using Singleton Pattern
