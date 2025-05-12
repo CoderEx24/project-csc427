@@ -21,8 +21,15 @@ However, there are situations were iteration through all or part of the model is
 The iterator pattern allows abstracting the process of looping through the model.
 Other parts of the software need not know the internal structure of the user interface model in order to iterate through it.
 It is necessary for the iterator to return components in a well-defined sequence (often a pre-order traversal of the tree).
+
 == Define Exporters using Visitor Pattern
+The Visitor pattern is used to encapsulate the logic of exporting the user interface into a file.
+The visitor pattern isolates the logic that operates on the UI model from the representation of the model.
+This isolation allows extending the code that operates on the UI model, while keeping the UI model code simple and easy to maintain.
+For each file type that's targeted, there's a concrete visitor class that implements exporting to that file type.
+
 == Share Resources using Flyweight Pattern
 == Building a User Interface using Builder Pattern
+
 == Managing Global User Interface Properties using Singleton Pattern
 
