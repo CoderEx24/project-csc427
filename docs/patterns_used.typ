@@ -1,3 +1,4 @@
+#image("full.png")
 == User Interface Modeling using Composite Pattern
 User interfaces are modeled using a tree.
 The root of the tree is the entire window.
@@ -14,6 +15,7 @@ User interfaces are constructed by putting UI elements in these containers,
 and then composing these containers to form a tree.
 This allows creating complex user interfaces that can handling resizing and layout efficiently.
 The Composite pattern is the ideal pattern to model this type of composition.
+#image("component.png")
 
 == Abstract Iteration through User Interface Tree Using Iterator Pattern
 While modeling user interfaces, it's sufficient to use a tree-based model.
@@ -23,10 +25,17 @@ Other parts of the software need not know the internal structure of the user int
 It is necessary for the iterator to return components in a well-defined sequence (often a pre-order traversal of the tree).
 
 == Define Exporters using Visitor Pattern
-The Visitor pattern is used to encapsulate the logic of exporting the user interface into a file.
-The visitor pattern isolates the logic that operates on the UI model from the representation of the model.
-This isolation allows extending the code that operates on the UI model, while keeping the UI model code simple and easy to maintain.
-For each file type that's targeted, there's a concrete visitor class that implements exporting to that file type.
+#grid(
+  columns: (4fr, 1fr),
+  gutter: 4em, 
+  [
+  The Visitor pattern is used to encapsulate the logic of exporting the user interface into a file.
+  The visitor pattern isolates the logic that operates on the UI model from the representation of the model.
+  This isolation allows extending the code that operates on the UI model, while keeping the UI model code simple and easy to maintain.
+  For each file type that's targeted, there's a concrete visitor class that implements exporting to that file type.
+  ],
+  image("exporter.png") 
+)
 
 == Share Resources using Flyweight Pattern
 Designing user interfaces needs resources like fonts, icons and images.
