@@ -16,6 +16,11 @@ This allows creating complex user interfaces that can handling resizing and layo
 The Composite pattern is the ideal pattern to model this type of composition.
 
 == Abstract Iteration through User Interface Tree Using Iterator Pattern
+While modeling user interfaces, it's sufficient to use a tree-based model.
+However, there are situations were iteration through all or part of the model is necessary.
+The iterator pattern allows abstracting the process of looping through the model.
+Other parts of the software need not know the internal structure of the user interface model in order to iterate through it.
+It is necessary for the iterator to return components in a well-defined sequence (often a pre-order traversal of the tree).
 == Define Exporters using Visitor Pattern
 == Share Resources using Flyweight Pattern
 == Building a User Interface using Builder Pattern
