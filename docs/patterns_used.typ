@@ -36,6 +36,7 @@ Assets are represented as an object per asset,
 and UI elements refer to that instance of the asset in order to render itself.
 
 == Building a User Interface using Builder Pattern
-
-== Managing Global User Interface Properties using Singleton Pattern
-
+User interfaces are often a large and complex tree of components and containers.
+Therefore, the builder pattern is used to encapsulate the logic of building a UI tree.
+The builder is used to read a UI design from a save file.
+Using the builder pattern allows the logic of building a UI and the representation of the UI to vary independently.
