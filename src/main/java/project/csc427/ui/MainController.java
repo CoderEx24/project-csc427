@@ -14,6 +14,7 @@ public class MainController {
     private Component componentTreeRoot;
     private long labelCounter;
     private long listboxCounter;
+    private long dropdownCounter;
 
     @FXML
     private Canvas canvas;
@@ -43,7 +44,7 @@ public class MainController {
         componentTreeRoot.setSize(300, 300);
         componentTree.setRoot(new TreeItem<>(componentTreeRoot));
         componentTree.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        listboxCounter = labelCounter = 0;
+        dropdownCounter = listboxCounter = labelCounter = 0;
     }
 
     @FXML
@@ -62,6 +63,8 @@ public class MainController {
 
         gc.clearRect(0, 0, 500, 500);
         componentTreeRoot.draw(gc);
+
+        System.out.println(evt.getTarget());
     }
 
     @FXML
@@ -85,4 +88,22 @@ public class MainController {
         componentTreeRoot.draw(gc);
     }
 
+    @FXML
+    void onNewDropdown(ActionEvent evt) {
+        var root = componentTree.getSelectionModel().getSelectedItem();
+        root = root == null ? componentTree.getRoot() : root;
+
+        String name = "dropdown" + dropdownCounter++;
+        Dropdown comp = new Dropdown(name, root.getValue());
+        comp.setSize(120, 30);
+        comp.addOption("Default");
+        
+        componentTreeRoot.addChild(name, comp);
+        root.getChildren().add(new TreeItem<Component>(comp));
+
+        var gc = canvas.getGraphicsContext2D();
+
+        gc.clearRect(0, 0, 500, 500);
+        componentTreeRoot.draw(gc);
+    }
 }
