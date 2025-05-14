@@ -73,6 +73,21 @@ public class XMLExporter implements Exporter {
         xmlOutput.append(getIndent()).append("</VBoxLayout>\n");
     }
 
+    @Override 
+    public void visit(GridLayout grid) {
+
+    }
+
+    @Override 
+    public void visit(Listbox lbox) {
+
+    }
+
+    @Override 
+    public void visit(Dropdown dd) {
+
+    }
+
     public String exportToString() {
         return xmlOutput.toString();
     }
