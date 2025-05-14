@@ -29,6 +29,5 @@ public interface Component {
   public float[] getSize();
   public float[] getPosition();
   public String getName();
-  
 }
 
