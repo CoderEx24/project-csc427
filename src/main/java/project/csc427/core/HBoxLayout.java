@@ -6,8 +6,8 @@ import java.util.LinkedHashMap;
 public final class HBoxLayout extends BasicComponent implements Layout {
   private SequencedMap<String, Component> children;
 
-  public HBoxLayout(Component p) {
-    super(p);
+  public HBoxLayout(String n, Component p) {
+    super(n, p);
     children = new LinkedHashMap<>();
   }
 

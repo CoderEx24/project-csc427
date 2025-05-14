@@ -1,18 +1,17 @@
 package project.csc427.core;
 
-import project.csc427.core.BasicComponent;
 import javafx.scene.canvas.GraphicsContext;;
 
 public final class Label extends BasicComponent {
   private String value;
 
-  public Label(Component p) {
-    super(p);
+  public Label(String n, Component p) {
+    super(n, p);
     value = "Label";
   }
 
-  public Label(Component p, String t) {
-    super(p);
+  public Label(String n, Component p, String t) {
+    super(n, p);
     value = t;
   }
 

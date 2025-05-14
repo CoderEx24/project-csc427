@@ -3,8 +3,9 @@ package project.csc427.core;
 public abstract class BasicComponent implements Component {
   private float width, height, x, y;
   private Component parent;
+  private String name;
 
-  public BasicComponent(Component p) {
+  public BasicComponent(String n, Component p) {
     if (p == null) {
       width = height = x = y = 0f;
 
@@ -19,6 +20,7 @@ public abstract class BasicComponent implements Component {
 
     }
 
+    name = n;
     parent = p;
   }
 
@@ -42,6 +44,10 @@ public abstract class BasicComponent implements Component {
 
   public Component getParent() {
     return parent;
+  }
+
+  public String getName() {
+    return name;
   }
 }
 
