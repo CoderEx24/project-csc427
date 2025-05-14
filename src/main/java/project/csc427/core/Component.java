@@ -23,7 +23,7 @@ public interface Component {
     throw new UnsupportedOperationException();
   }
 
-  public void accept(Visitor visitor);
+  public void accept(Exporter visitor);
 
   public Component getParent();
   public void setSize(float w, float h);

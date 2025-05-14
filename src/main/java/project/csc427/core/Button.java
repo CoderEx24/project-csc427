@@ -50,7 +50,7 @@ public final class Button extends BasicComponent {
     }
 
     @Override
-    public void accept(Visitor visitor) {
-        visitor.visitButton(this);
+    public void accept(Exporter visitor) {
+        visitor.visit(this);
     }
 }

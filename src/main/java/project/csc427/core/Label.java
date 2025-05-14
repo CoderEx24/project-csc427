@@ -35,9 +35,8 @@ public final class Label extends BasicComponent {
   }
 
   @Override
-  public void accept(Visitor visitor) {
-    visitor.visitLabel(this);
+  public void accept(Exporter visitor) {
+    visitor.visit(this);
   }
-
 }
 

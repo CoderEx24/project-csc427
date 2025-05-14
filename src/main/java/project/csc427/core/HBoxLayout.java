@@ -50,8 +50,8 @@ public final class HBoxLayout extends BasicComponent implements Layout {
     return true;
   }
   @Override
-  public void accept(Visitor visitor) {
-    visitor.visitHBoxLayout(this);
+  public void accept(Exporter visitor) {
+    visitor.visit(this);
   }
 }
 

@@ -45,7 +45,7 @@ public final class Textbox extends BasicComponent {
     }
 
     @Override
-    public void accept(Visitor visitor) {
-        visitor.visitTextbox(this);
+    public void accept(Exporter visitor) {
+        visitor.visit(this);
     }
 }
