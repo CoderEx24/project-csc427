@@ -20,6 +20,6 @@ repositories {
 }
 
 application {
-  mainClass = 'project.csc427.Main'
+  mainClass = 'modular.design.studio.ModularDesignStudio'
 }
 

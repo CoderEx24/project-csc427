@@ -34,17 +34,17 @@ public class ModularDesignStudio extends Application {
         controls.getChildren().add(new Label("Theme:"));
         controls.getChildren().add(themeCombo);
 
-        Button addButton = new Button("Add Button");
+        javafx.scene.control.Button addButton = new javafx.scene.control.Button("Add Button");
         addButton.setOnAction(e -> addComponent("button"));
-        Button addTextbox = new Button("Add Textbox");
+        javafx.scene.control.Button addTextbox = new javafx.scene.control.Button("Add Textbox");
         addTextbox.setOnAction(e -> addComponent("textbox"));
-        Button addDropdown = new Button("Add Dropdown");
+        javafx.scene.control.Button addDropdown = new javafx.scene.control.Button("Add Dropdown");
         addDropdown.setOnAction(e -> addComponent("dropdown"));
-        Button cloneButton = new Button("Clone UI");
+        javafx.scene.control.Button cloneButton = new javafx.scene.control.Button("Clone UI");
         cloneButton.setOnAction(e -> cloneUI());
-        Button exportButton = new Button("Export XML");
+        javafx.scene.control.Button exportButton = new javafx.scene.control.Button("Export XML");
         exportButton.setOnAction(e -> exportXML());
-        Button clearButton = new Button("Clear Canvas");
+        javafx.scene.control.Button clearButton = new javafx.scene.control.Button("Clear Canvas");
         clearButton.setOnAction(e -> clearCanvas());
         controls.getChildren().addAll(addButton, addTextbox, addDropdown, cloneButton, exportButton, clearButton);
 
@@ -162,7 +162,7 @@ public class ModularDesignStudio extends Application {
             activeComboBox.setOnAction(ae -> {
                 dropdown.setSelectedOption(activeComboBox.getValue());
                 canvas.getChildren().stream()
-                      .filter(node -> node instanceof Text && node.getX() == rect.getX() + 50 && node.getY() == rect.getY() + 15)
+                      //.filter(node -> node instanceof Text && node.getX() == rect.getX() + 50 && node.getY() == rect.getY() + 15)
                       .forEach(node -> ((Text) node).setText(dropdown.getSelectedOption()));
                 canvas.getChildren().remove(activeComboBox);
                 activeComboBox = null;
