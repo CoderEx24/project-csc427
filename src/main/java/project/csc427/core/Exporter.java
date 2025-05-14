@@ -8,6 +8,9 @@ public interface Exporter {
     void visit(Button button);
     void visit(HBoxLayout hbox);
     void visit(VBoxLayout vbox);
+    void visit(Listbox lbox);
+    void visit(Dropdown dd);
+    void visit(GridLayout grid);
 
     default boolean exportToFile(String filepath) {
 
