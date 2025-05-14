@@ -131,7 +131,7 @@ public class MainController {
     }
 
     @FXML
-    void onVBoxLayout(ActionEvent evt) {
+    void onNewVBoxLayout(ActionEvent evt) {
         var root = componentTree.getSelectionModel().getSelectedItem();
         root = root == null ? componentTree.getRoot() : root;
 

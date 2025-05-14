@@ -49,7 +49,7 @@
                 <Button mnemonicParsing="false" onAction="#onNewLabel" text="Label" />
                   <Button mnemonicParsing="false" onAction="#onNewTextbox" text="Textbox" />
                   <Button mnemonicParsing="false" onAction="#onNewDropdown" text="Dropdown" />
-                  <Button mnemonicParsing="false" text="VBoxLayout" />
+                  <Button mnemonicParsing="false" onAction="#onNewVBoxLayout" text="VBoxLayout" />
                   <Button mnemonicParsing="false" text="HBoxLayout" />
                   <Button mnemonicParsing="false" text="GridLayout" />
                   <Button mnemonicParsing="false" onAction="#onNewListbox" text="Listbox" />
