@@ -63,4 +63,24 @@ public class MainController {
         componentTreeRoot.draw(gc);
     }
 
+    @FXML
+    void onNewListbox(ActionEvent evt) {
+        var root = componentTree.getSelectionModel().getSelectedItem();
+        root = root == null ? componentTree.getRoot() : root;
+
+        Listbox listBox = new Listbox("listbox", root.getValue());
+        listBox.setSize(120, 100);
+        listBox.addItem("Item 1");
+        listBox.addItem("Item 2");
+        listBox.addItem("Item 3");
+
+        componentTreeRoot.addChild("listbox", listBox);
+        root.getChildren().add(new TreeItem<Component>(listBox));
+
+        var gc = canvas.getGraphicsContext2D();
+        
+        gc.clearRect(0, 0, 500, 500);
+        componentTreeRoot.draw(gc);
+    }
+
 }
