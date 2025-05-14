@@ -16,6 +16,7 @@ public class MainController {
     private long listboxCounter;
     private long dropdownCounter;
     private long textboxCounter;
+    private long vboxCounter;
 
     @FXML
     private Canvas canvas;
@@ -45,14 +46,15 @@ public class MainController {
         componentTreeRoot.setSize(300, 300);
         componentTree.setRoot(new TreeItem<>(componentTreeRoot));
         componentTree.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        dropdownCounter = listboxCounter = labelCounter = 0;
+        vboxCounter = textboxCounter = dropdownCounter = 
+            listboxCounter = labelCounter = 0;
     }
 
     @FXML
     void onNewLabel(ActionEvent evt) {
         var root = componentTree.getSelectionModel().getSelectedItem();
         root = root == null ? componentTree.getRoot() : root;
-
+        
         String str = "label" + labelCounter++;
         Component newLabel = new Label(str, root.getValue());
         newLabel.setSize(20, 20);
@@ -125,6 +127,23 @@ public class MainController {
 
         gc.clearRect(0, 0, 500, 500);
         componentTreeRoot.draw(gc);
+    }
 
+    @FXML
+    void onVBoxLayout(ActionEvent evt) {
+        var root = componentTree.getSelectionModel().getSelectedItem();
+        root = root == null ? componentTree.getRoot() : root;
+
+        String name = "VBoxLayout" + vboxCounter++;
+        VBoxLayout comp = new VBoxLayout(name, root.getValue());
+        comp.setSize(100, 300);
+        
+        root.getValue().addChild(name, comp);
+        root.getChildren().add(new TreeItem<Component>(comp));
+
+        var gc = canvas.getGraphicsContext2D();
+
+        gc.clearRect(0, 0, 500, 500);
+        componentTreeRoot.draw(gc);
     }
 }
