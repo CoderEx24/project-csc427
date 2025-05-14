@@ -1,0 +1,189 @@
+package modular.design.studio;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import java.util.Iterator;
+
+public class ModularDesignStudio extends Application {
+    private Pane canvas;
+    private Panel currentPanel;
+    private PanelBuilder builder;
+    private TextArea xmlText;
+    private Label statusLabel;
+    private TextField activeTextField;
+    private ComboBox<String> activeComboBox;
+
+    @Override
+    public void start(Stage primaryStage) {
+        canvas = new Pane();
+        canvas.setPrefSize(600, 400);
+        builder = new PanelBuilder();
+        currentPanel = null;
+
+        VBox root = new VBox(10);
+        HBox controls = new HBox(10);
+
+        ComboBox<String> themeCombo = new ComboBox<>();
+        themeCombo.getItems().addAll("Windows", "Mac");
+        themeCombo.setValue("Windows");
+        controls.getChildren().add(new Label("Theme:"));
+        controls.getChildren().add(themeCombo);
+
+        javafx.scene.control.Button addButton = new javafx.scene.control.Button("Add Button");
+        addButton.setOnAction(e -> addComponent("button"));
+        javafx.scene.control.Button addTextbox = new javafx.scene.control.Button("Add Textbox");
+        addTextbox.setOnAction(e -> addComponent("textbox"));
+        javafx.scene.control.Button addDropdown = new javafx.scene.control.Button("Add Dropdown");
+        addDropdown.setOnAction(e -> addComponent("dropdown"));
+        javafx.scene.control.Button cloneButton = new javafx.scene.control.Button("Clone UI");
+        cloneButton.setOnAction(e -> cloneUI());
+        javafx.scene.control.Button exportButton = new javafx.scene.control.Button("Export XML");
+        exportButton.setOnAction(e -> exportXML());
+        javafx.scene.control.Button clearButton = new javafx.scene.control.Button("Clear Canvas");
+        clearButton.setOnAction(e -> clearCanvas());
+        controls.getChildren().addAll(addButton, addTextbox, addDropdown, cloneButton, exportButton, clearButton);
+
+        statusLabel = new Label("Ready");
+        xmlText = new TextArea();
+        xmlText.setPrefHeight(150);
+
+        root.getChildren().addAll(canvas, controls, statusLabel, xmlText);
+        Scene scene = new Scene(root, 650, 650);
+        primaryStage.setTitle("Modular Design Studio");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    private void addComponent(String type) {
+        closeActiveWidgets();
+        if (currentPanel == null) {
+            currentPanel = builder.setTheme(((ComboBox<String>) ((HBox) canvas.getParent().getChildrenUnmodifiable().get(1)).getChildren().get(1)).getValue()).build();
+        }
+        builder.addComponent(type);
+        canvas.getChildren().clear();
+        currentPanel.render(canvas, 50, 50, null, this);
+        statusLabel.setText("Added " + type);
+    }
+
+    private void cloneUI() {
+        closeActiveWidgets();
+        if (currentPanel != null) {
+            canvas.getChildren().clear();
+            currentPanel = (Panel) currentPanel.clone();
+            currentPanel.render(canvas, 50, 50, null, this);
+            statusLabel.setText("UI cloned");
+        }
+    }
+
+    private void exportXML() {
+        closeActiveWidgets();
+        if (currentPanel != null) {
+            XMLExportVisitor visitor = new XMLExportVisitor();
+            Iterator<UIComponent> iterator = currentPanel.iterator();
+            while (iterator.hasNext()) {
+                iterator.next().accept(visitor);
+            }
+            xmlText.setText(visitor.getXML());
+            statusLabel.setText("XML exported");
+        }
+    }
+
+    private void clearCanvas() {
+        closeActiveWidgets();
+        canvas.getChildren().clear();
+        currentPanel = null;
+        builder = new PanelBuilder();
+        xmlText.clear();
+        statusLabel.setText("Canvas cleared");
+    }
+
+    public void registerDraggable(Rectangle rect, Integer parentId) {
+        double[] dragStart = new double[2];
+        rect.setOnMousePressed(e -> {
+            dragStart[0] = e.getX();
+            dragStart[1] = e.getY();
+        });
+        rect.setOnMouseDragged(e -> {
+            double dx = e.getX() - dragStart[0];
+            double dy = e.getY() - dragStart[1];
+            rect.setX(rect.getX() + dx);
+            rect.setY(rect.getY() + dy);
+            if (parentId != null) {
+                canvas.getChildren().stream()
+                      .filter(node -> node instanceof Rectangle && node.hashCode() == parentId)
+                      .forEach(node -> {
+                          ((Rectangle) node).setX(((Rectangle) node).getX() + dx);
+                          ((Rectangle) node).setY(((Rectangle) node).getY() + dy);
+                      });
+            }
+            dragStart[0] = e.getX();
+            dragStart[1] = e.getY();
+        });
+    }
+
+    public void registerButton(Rectangle rect, Button button) {
+        rect.setOnMouseClicked(e -> statusLabel.setText("Button clicked!"));
+    }
+
+    public void registerTextbox(Rectangle rect, Textbox textbox, Text textNode) {
+        rect.setOnMouseClicked(e -> {
+            closeActiveWidgets();
+            activeTextField = new TextField(textbox.getText());
+            activeTextField.setLayoutX(rect.getX() + 50);
+            activeTextField.setLayoutY(rect.getY() + 15);
+            activeTextField.setPrefWidth(80);
+            canvas.getChildren().add(activeTextField);
+            activeTextField.requestFocus();
+            activeTextField.setOnAction(ae -> {
+                textbox.setText(activeTextField.getText());
+                textNode.setText(textbox.getText().isEmpty() ? "Textbox" : textbox.getText());
+                canvas.getChildren().remove(activeTextField);
+                activeTextField = null;
+                statusLabel.setText("Textbox text saved");
+            });
+            statusLabel.setText("Editing Textbox");
+        });
+    }
+
+    public void registerDropdown(Rectangle rect, Dropdown dropdown) {
+        rect.setOnMouseClicked(e -> {
+            closeActiveWidgets();
+            activeComboBox = new ComboBox<>();
+            activeComboBox.getItems().addAll(dropdown.getOptions());
+            activeComboBox.setValue(dropdown.getSelectedOption());
+            activeComboBox.setLayoutX(rect.getX() + 50);
+            activeComboBox.setLayoutY(rect.getY() + 15);
+            canvas.getChildren().add(activeComboBox);
+            activeComboBox.setOnAction(ae -> {
+                dropdown.setSelectedOption(activeComboBox.getValue());
+                canvas.getChildren().stream()
+                      //.filter(node -> node instanceof Text && node.getX() == rect.getX() + 50 && node.getY() == rect.getY() + 15)
+                      .forEach(node -> ((Text) node).setText(dropdown.getSelectedOption()));
+                canvas.getChildren().remove(activeComboBox);
+                activeComboBox = null;
+                statusLabel.setText("Dropdown selected: " + dropdown.getSelectedOption());
+            });
+            statusLabel.setText("Selecting Dropdown option");
+        });
+    }
+
+    private void closeActiveWidgets() {
+        if (activeTextField != null) {
+            canvas.getChildren().remove(activeTextField);
+            activeTextField = null;
+        }
+        if (activeComboBox != null) {
+            canvas.getChildren().remove(activeComboBox);
+            activeComboBox = null;
+        }
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
