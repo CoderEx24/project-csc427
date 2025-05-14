@@ -55,12 +55,13 @@ public class MainController {
         var root = componentTree.getSelectionModel().getSelectedItem();
         root = root == null ? componentTree.getRoot() : root;
         
-        String str = "label" + labelCounter++;
-        Component newLabel = new Label(str, root.getValue());
-        newLabel.setSize(20, 20);
-        componentTreeRoot.addChild(str, newLabel);
-        ((Label) newLabel).setText("Label");
-        root.getChildren().add(new TreeItem<>(newLabel));
+        String name = "label" + labelCounter++;
+        Label comp = new Label(name, root.getValue());
+        comp.setSize(20, 20);
+        comp.setText("Label");
+
+        root.getValue().addChild(name, comp);
+        root.getChildren().add(new TreeItem<>(comp));
 
         var gc = canvas.getGraphicsContext2D();
 
@@ -75,15 +76,15 @@ public class MainController {
         var root = componentTree.getSelectionModel().getSelectedItem();
         root = root == null ? componentTree.getRoot() : root;
 
-        String boxName = "listbox" + listboxCounter++;
-        Listbox listBox = new Listbox(boxName, root.getValue());
-        listBox.setSize(120, 100);
-        listBox.addItem("Item 1");
-        listBox.addItem("Item 2");
-        listBox.addItem("Item 3");
-
-        componentTreeRoot.addChild(boxName, listBox);
-        root.getChildren().add(new TreeItem<Component>(listBox));
+        String name = "listbox" + listboxCounter++;
+        Listbox comp = new Listbox(name, root.getValue());
+        comp.setSize(120, 100);
+        comp.addItem("Item 1");
+        comp.addItem("Item 2");
+        comp.addItem("Item 3");
+        
+        root.getValue().addChild(name, comp);
+        root.getChildren().add(new TreeItem<>(comp));
 
         var gc = canvas.getGraphicsContext2D();
         
@@ -101,7 +102,7 @@ public class MainController {
         comp.setSize(120, 30);
         comp.addOption("Default");
         
-        componentTreeRoot.addChild(name, comp);
+        root.getValue().addChild(name, comp);
         root.getChildren().add(new TreeItem<Component>(comp));
 
         var gc = canvas.getGraphicsContext2D();
@@ -120,7 +121,7 @@ public class MainController {
         comp.setSize(120, 30);
         comp.setText("placeholder");
         
-        componentTreeRoot.addChild(name, comp);
+        root.getValue().addChild(name, comp);
         root.getChildren().add(new TreeItem<Component>(comp));
 
         var gc = canvas.getGraphicsContext2D();
