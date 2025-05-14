@@ -6,7 +6,6 @@ import javafx.scene.shape.ArcType;
 
 import java.util.Deque;
 import java.util.LinkedList;
-import java.util.NoSuchElementException;
 
 public final class Dropdown extends BasicComponent {
 
@@ -44,6 +43,11 @@ public final class Dropdown extends BasicComponent {
     gc.closePath();
 
     return true;
+  }
+
+  @Override
+  public void accept(Exporter v) {
+    v.visit(this);
   }
 }
 

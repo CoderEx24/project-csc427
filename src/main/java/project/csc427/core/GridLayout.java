@@ -81,5 +81,10 @@ public final class GridLayout extends BasicComponent implements Layout {
 
     return true;
   }
+
+  @Override
+  public void accept(Exporter v) {
+    v.visit(this);
+  }
 }
 

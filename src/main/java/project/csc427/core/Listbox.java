@@ -63,5 +63,10 @@ public final class Listbox extends BasicComponent {
 
     return true;
   }
+
+  @Override
+  public void accept(Exporter v) {
+    v.visit(this);
+  }
 }
 
