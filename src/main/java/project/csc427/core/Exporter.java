@@ -1,0 +1,24 @@
+package project.csc427.core;
+
+import java.io.FileWriter;
+
+public interface Exporter {
+    void visit(Label label);
+    void visit(Textbox textbox);
+    void visit(Button button);
+    void visit(HBoxLayout hbox);
+    void visit(VBoxLayout vbox);
+
+    default boolean exportToFile(String filepath) {
+
+        try(var writer = new FileWriter(filepath)) {
+            writer.write(exportToString());
+
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    String exportToString();
+}

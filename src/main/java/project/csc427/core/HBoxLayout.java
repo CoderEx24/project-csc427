@@ -49,6 +49,9 @@ public final class HBoxLayout extends BasicComponent implements Layout {
   
     return true;
   }
-
+  @Override
+  public void accept(Exporter visitor) {
+    visitor.visit(this);
+  }
 }
 
