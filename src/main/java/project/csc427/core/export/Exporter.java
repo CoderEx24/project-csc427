@@ -1,5 +1,6 @@
-package project.csc427.core;
+package project.csc427.core.export;
 
+import project.csc427.core.component.*;
 import java.io.FileWriter;
 
 public interface Exporter {
