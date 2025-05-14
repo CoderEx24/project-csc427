@@ -19,6 +19,7 @@ public class MainController {
     private long textboxCounter;
     private long vboxCounter;
     private long gridCounter;
+    private long buttonCounter;
 
     @FXML
     private Canvas canvas;
@@ -49,123 +50,8 @@ public class MainController {
         componentTree.setRoot(new TreeItem<>(componentTreeRoot));
         componentTree.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         vboxCounter = textboxCounter = dropdownCounter = 
-            gridCounter = listboxCounter = labelCounter = 0;
-    }
-
-    @FXML
-    void onNewLabel(ActionEvent evt) {
-        var root = componentTree.getSelectionModel().getSelectedItem();
-        root = root == null ? componentTree.getRoot() : root;
-        
-        String name = "label" + labelCounter++;
-        Label comp = new Label(name, root.getValue());
-        comp.setSize(20, 20);
-        comp.setText("Label");
-
-        root.getValue().addChild(name, comp);
-        root.getChildren().add(new TreeItem<>(comp));
-
-        var gc = canvas.getGraphicsContext2D();
-
-        gc.clearRect(0, 0, 500, 500);
-        componentTreeRoot.draw(gc);
-
-        System.out.println(evt.getTarget());
-    }
-
-    @FXML
-    void onNewListbox(ActionEvent evt) {
-        var root = componentTree.getSelectionModel().getSelectedItem();
-        root = root == null ? componentTree.getRoot() : root;
-
-        String name = "listbox" + listboxCounter++;
-        Listbox comp = new Listbox(name, root.getValue());
-        comp.setSize(120, 100);
-        comp.addItem("Item 1");
-        comp.addItem("Item 2");
-        comp.addItem("Item 3");
-        
-        root.getValue().addChild(name, comp);
-        root.getChildren().add(new TreeItem<>(comp));
-
-        var gc = canvas.getGraphicsContext2D();
-        
-        gc.clearRect(0, 0, 500, 500);
-        componentTreeRoot.draw(gc);
-    }
-
-    @FXML
-    void onNewDropdown(ActionEvent evt) {
-        var root = componentTree.getSelectionModel().getSelectedItem();
-        root = root == null ? componentTree.getRoot() : root;
-
-        String name = "dropdown" + dropdownCounter++;
-        Dropdown comp = new Dropdown(name, root.getValue());
-        comp.setSize(120, 30);
-        comp.addOption("Default");
-        
-        root.getValue().addChild(name, comp);
-        root.getChildren().add(new TreeItem<Component>(comp));
-
-        var gc = canvas.getGraphicsContext2D();
-
-        gc.clearRect(0, 0, 500, 500);
-        componentTreeRoot.draw(gc);
-    }
-
-    @FXML
-    void onNewTextbox(ActionEvent evt) {
-        var root = componentTree.getSelectionModel().getSelectedItem();
-        root = root == null ? componentTree.getRoot() : root;
-
-        String name = "textbox" + textboxCounter++;
-        Textbox comp = new Textbox(name, root.getValue());
-        comp.setSize(120, 30);
-        comp.setText("placeholder");
-        
-        root.getValue().addChild(name, comp);
-        root.getChildren().add(new TreeItem<Component>(comp));
-
-        var gc = canvas.getGraphicsContext2D();
-
-        gc.clearRect(0, 0, 500, 500);
-        componentTreeRoot.draw(gc);
-    }
-
-    @FXML
-    void onNewVBoxLayout(ActionEvent evt) {
-        var root = componentTree.getSelectionModel().getSelectedItem();
-        root = root == null ? componentTree.getRoot() : root;
-
-        String name = "VBoxLayout" + vboxCounter++;
-        VBoxLayout comp = new VBoxLayout(name, root.getValue());
-        comp.setSize(100, 300);
-        
-        root.getValue().addChild(name, comp);
-        root.getChildren().add(new TreeItem<Component>(comp));
-
-        var gc = canvas.getGraphicsContext2D();
-
-        gc.clearRect(0, 0, 500, 500);
-        componentTreeRoot.draw(gc);
-    }
-
-    @FXML
-    void onNewHBoxLayout(ActionEvent evt) {
-        var root = componentTree.getSelectionModel().getSelectedItem();
-        root = root == null ? componentTree.getRoot() : root;
-
-        String name = "VBoxLayout" + vboxCounter++;
-        HBoxLayout comp = new HBoxLayout(name, root.getValue());
-        comp.setSize(300, 100);
-        
-        root.getValue().addChild(name, comp);
-        root.getChildren().add(new TreeItem<Component>(comp));
-
-        var gc = canvas.getGraphicsContext2D();
-
-        gc.clearRect(0, 0, 500, 500);
-        componentTreeRoot.draw(gc);
+            gridCounter = listboxCounter =
+            buttonCounter = labelCounter = 0;
     }
 
     @FXML
@@ -177,12 +63,63 @@ public class MainController {
         String name;
         
         switch (((Node) evt.getSource()).getId()) {
+
+            case "Label":
+                name = "label" + labelCounter++;
+                comp = new Label(name, root.getValue());
+                comp.setSize(20, 20);
+                ((Label) comp).setText("Label");
+                break;
+
+            case "Textbox":
+                name = "textbox" + textboxCounter++;
+                comp = new Textbox(name, root.getValue());
+                comp.setSize(120, 30);
+                ((Textbox) comp).setText("placeholder");
+                break;
+
+            case "Dropdown":
+                name = "dropdown" + dropdownCounter++;
+                comp = new Dropdown(name, root.getValue());
+                comp.setSize(120, 30);
+                ((Dropdown) comp).addOption("Default");
+                
+                break;
+
+            case "VBoxLayout":
+                name = "VBoxLayout" + vboxCounter++;
+                comp = new VBoxLayout(name, root.getValue());
+                comp.setSize(100, 300);
+        
+                break;
+
+            case "HBoxLayout":
+                name = "VBoxLayout" + vboxCounter++;
+                comp = new HBoxLayout(name, root.getValue());
+                comp.setSize(300, 100);
+                break;
+
             case "GridLayout":
                 name = "grid" + gridCounter++;
                 comp = new GridLayout(name, root.getValue());
                 ((GridLayout) comp).setRows(3);
                 ((GridLayout) comp).setColumns(3);
                 break;
+
+            case "Listbox":
+                name = "listbox" + listboxCounter++;
+                comp = new Listbox(name, root.getValue());
+                ((Listbox) comp).setSize(120, 100);
+                ((Listbox) comp).addItem("Item 1");
+                ((Listbox) comp).addItem("Item 2");
+                ((Listbox) comp).addItem("Item 3");
+                break;
+
+            case "Button":
+                name = "button" + buttonCounter++;
+                comp = new Button(name, root.getValue());
+                comp.setSize(100, 40);
+                ((Button) comp).setText("Button");
             default: return;
 
         }
