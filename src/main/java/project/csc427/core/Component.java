@@ -28,6 +28,7 @@ public interface Component {
   public void setPosition(float x, float y);
   public float[] getSize();
   public float[] getPosition();
+  public String getName();
   
 }
 
