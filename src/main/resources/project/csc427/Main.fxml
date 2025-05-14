@@ -51,7 +51,7 @@
                   <Button mnemonicParsing="false" onAction="#onNewDropdown" text="Dropdown" />
                   <Button mnemonicParsing="false" onAction="#onNewVBoxLayout" text="VBoxLayout" />
                   <Button mnemonicParsing="false" onAction="#onNewHBoxLayout" text="HBoxLayout" />
-                  <Button mnemonicParsing="false" text="GridLayout" />
+                  <Button fx:id="GridLayout" mnemonicParsing="false" onAction="#onNewElement" text="GridLayout" />
                   <Button mnemonicParsing="false" onAction="#onNewListbox" text="Listbox" />
               </buttons>
             </ButtonBar>

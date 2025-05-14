@@ -7,6 +7,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.Node;
 import javafx.event.ActionEvent;
 
 public class MainController {
@@ -17,6 +18,7 @@ public class MainController {
     private long dropdownCounter;
     private long textboxCounter;
     private long vboxCounter;
+    private long gridCounter;
 
     @FXML
     private Canvas canvas;
@@ -47,7 +49,7 @@ public class MainController {
         componentTree.setRoot(new TreeItem<>(componentTreeRoot));
         componentTree.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         vboxCounter = textboxCounter = dropdownCounter = 
-            listboxCounter = labelCounter = 0;
+            gridCounter = listboxCounter = labelCounter = 0;
     }
 
     @FXML
@@ -165,4 +167,33 @@ public class MainController {
         gc.clearRect(0, 0, 500, 500);
         componentTreeRoot.draw(gc);
     }
+
+    @FXML
+    void onNewElement(ActionEvent evt) {
+        var root = componentTree.getSelectionModel().getSelectedItem();
+        root = root == null ? componentTree.getRoot() : root;
+
+        Component comp;
+        String name;
+        
+        switch (((Node) evt.getSource()).getId()) {
+            case "GridLayout":
+                name = "grid" + gridCounter++;
+                comp = new GridLayout(name, root.getValue());
+                ((GridLayout) comp).setRows(3);
+                ((GridLayout) comp).setColumns(3);
+                break;
+            default: return;
+
+        }
+        
+        root.getValue().addChild(name, comp);
+        root.getChildren().add(new TreeItem<Component>(comp));
+
+        var gc = canvas.getGraphicsContext2D();
+
+        gc.clearRect(0, 0, 500, 500);
+        componentTreeRoot.draw(gc);
+    }
+
 }
