@@ -15,6 +15,7 @@ public class MainController {
     private long labelCounter;
     private long listboxCounter;
     private long dropdownCounter;
+    private long textboxCounter;
 
     @FXML
     private Canvas canvas;
@@ -105,5 +106,25 @@ public class MainController {
 
         gc.clearRect(0, 0, 500, 500);
         componentTreeRoot.draw(gc);
+    }
+
+    @FXML
+    void onNewTextbox(ActionEvent evt) {
+        var root = componentTree.getSelectionModel().getSelectedItem();
+        root = root == null ? componentTree.getRoot() : root;
+
+        String name = "textbox" + textboxCounter++;
+        Textbox comp = new Textbox(name, root.getValue());
+        comp.setSize(120, 30);
+        comp.setText("placeholder");
+        
+        componentTreeRoot.addChild(name, comp);
+        root.getChildren().add(new TreeItem<Component>(comp));
+
+        var gc = canvas.getGraphicsContext2D();
+
+        gc.clearRect(0, 0, 500, 500);
+        componentTreeRoot.draw(gc);
+
     }
 }
