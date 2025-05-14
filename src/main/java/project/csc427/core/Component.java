@@ -1,5 +1,6 @@
 package project.csc427.core;
 
+import java.util.Iterator;
 import javafx.scene.canvas.GraphicsContext;
 
 public interface Component {
@@ -15,6 +16,10 @@ public interface Component {
   }
 
   public default Component getChild(String name) {
+    throw new UnsupportedOperationException();
+  }
+
+  public default Iterator<Component> iterator() {
     throw new UnsupportedOperationException();
   }
 

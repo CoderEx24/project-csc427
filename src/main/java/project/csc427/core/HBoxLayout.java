@@ -1,5 +1,6 @@
 package project.csc427.core;
 
+import java.util.Iterator;
 import java.util.SequencedMap;
 import java.util.LinkedHashMap;
 
@@ -23,6 +24,10 @@ public final class HBoxLayout extends BasicComponent implements Layout {
 
   public Component getChild(String name) {
     return children.get(name);
+  }
+  
+  public Iterator<Component> iterator() {
+    return children.sequencedValues().iterator();
   }
 
   public boolean layout() {
