@@ -5,7 +5,20 @@ public abstract class BasicComponent implements Component {
   private Component parent;
 
   public BasicComponent(Component p) {
-    width = height = x = y = 0f;
+    if (p == null) {
+      width = height = x = y = 0f;
+
+    } else {
+      float[] parentPosition = p.getPosition();
+      float[] parentSize = p.getSize();
+
+      width = parentPosition[0];
+      height = parentPosition[1];
+      x = parentSize[0];
+      y = parentSize[1];
+
+    }
+
     parent = p;
   }
 
