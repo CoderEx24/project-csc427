@@ -52,7 +52,7 @@
                   <Button mnemonicParsing="false" text="VBoxLayout" />
                   <Button mnemonicParsing="false" text="HBoxLayout" />
                   <Button mnemonicParsing="false" text="GridLayout" />
-                  <Button mnemonicParsing="false" text="Listbox" />
+                  <Button mnemonicParsing="false" onAction="#onNewListbox" text="Listbox" />
               </buttons>
             </ButtonBar>
          </content>

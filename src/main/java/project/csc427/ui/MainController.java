@@ -13,6 +13,7 @@ public class MainController {
     
     private Component componentTreeRoot;
     private long labelCounter;
+    private long listboxCounter;
 
     @FXML
     private Canvas canvas;
@@ -42,7 +43,7 @@ public class MainController {
         componentTreeRoot.setSize(300, 300);
         componentTree.setRoot(new TreeItem<>(componentTreeRoot));
         componentTree.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        labelCounter = 0;
+        listboxCounter = labelCounter = 0;
     }
 
     @FXML
@@ -68,13 +69,14 @@ public class MainController {
         var root = componentTree.getSelectionModel().getSelectedItem();
         root = root == null ? componentTree.getRoot() : root;
 
-        Listbox listBox = new Listbox("listbox", root.getValue());
+        String boxName = "listbox" + listboxCounter++;
+        Listbox listBox = new Listbox(boxName, root.getValue());
         listBox.setSize(120, 100);
         listBox.addItem("Item 1");
         listBox.addItem("Item 2");
         listBox.addItem("Item 3");
 
-        componentTreeRoot.addChild("listbox", listBox);
+        componentTreeRoot.addChild(boxName, listBox);
         root.getChildren().add(new TreeItem<Component>(listBox));
 
         var gc = canvas.getGraphicsContext2D();
