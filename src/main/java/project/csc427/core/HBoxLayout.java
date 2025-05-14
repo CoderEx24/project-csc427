@@ -32,19 +32,19 @@ public final class HBoxLayout extends BasicComponent implements Layout {
 
   public boolean layout() {
     float[] origin = getPosition();
-    float runningYCoord = 0;
+    float runningXCoord = 0;
 
     for (var child : children.values()) {
       float[] size = child.getSize();
       float[] position = child.getPosition();
 
-      position[0] = origin[0];
-      position[1] = origin[1] + runningYCoord;
+      position[0] = origin[0] + runningXCoord;
+      position[1] = origin[1];
 
       child.setPosition(position[0], position[1]);
 
       // TODO: paramterise padding
-      runningYCoord += size[1] + 20;
+      runningXCoord += size[0] + 20;
     }
   
     return true;

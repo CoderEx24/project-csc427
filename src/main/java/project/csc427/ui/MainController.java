@@ -38,6 +38,7 @@ public class MainController {
         });
 
         componentTreeRoot = new HBoxLayout("Root", null);
+        componentTreeRoot.setPosition(0, 200);
         componentTreeRoot.setSize(300, 300);
         componentTree.setRoot(new TreeItem<>(componentTreeRoot));
         componentTree.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
