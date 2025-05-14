@@ -40,28 +40,28 @@
 <?import javafx.scene.layout.BorderPane?>
 
 
-<BorderPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/24" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/24" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.csc427.ui.MainController">
    <top>
       <ScrollPane vbarPolicy="NEVER" BorderPane.alignment="CENTER">
          <content>
             <ButtonBar maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="600.0">
               <buttons>
-                <Button mnemonicParsing="false" text="Label" />
+                <Button mnemonicParsing="false" onAction="#onNewLabel" text="Label" />
                   <Button mnemonicParsing="false" text="Textbox" />
                   <Button mnemonicParsing="false" text="Dropdown" />
-                  <Button mnemonicParsing="false" text="Listbox" />
                   <Button mnemonicParsing="false" text="VBoxLayout" />
                   <Button mnemonicParsing="false" text="HBoxLayout" />
                   <Button mnemonicParsing="false" text="GridLayout" />
+                  <Button mnemonicParsing="false" text="Listbox" />
               </buttons>
             </ButtonBar>
          </content>
       </ScrollPane>
    </top>
    <left>
-      <TreeView fx:id="ComponentTree" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <TreeView fx:id="componentTree" editable="true" minWidth="-Infinity" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </left>
    <center>
-      <Canvas fx:id="Canvas" height="276.0" width="290.0" BorderPane.alignment="CENTER" />
+      <Canvas fx:id="canvas" height="276.0" width="290.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>
