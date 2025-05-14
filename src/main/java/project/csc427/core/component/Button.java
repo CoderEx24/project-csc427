@@ -1,5 +1,6 @@
-package project.csc427.core;
+package project.csc427.core.component;
 
+import project.csc427.core.export.Exporter;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;

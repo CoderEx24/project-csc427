@@ -1,6 +1,7 @@
 package project.csc427.core.export;
 
-import porject.csc427.core.component.*;
+import project.csc427.core.component.*;
+import project.csc427.core.component.layout.*;
 
 public class XMLExporter implements Exporter {
     private StringBuilder xmlOutput;

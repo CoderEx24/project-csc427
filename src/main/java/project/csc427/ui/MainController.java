@@ -1,6 +1,8 @@
 package project.csc427.ui;
 
-import project.csc427.core.*;
+import project.csc427.core.component.*;
+import project.csc427.core.component.layout.*;
+
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.TreeView;

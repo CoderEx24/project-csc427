@@ -1,5 +1,6 @@
-package project.csc427.core;
+package project.csc427.core.component.layout;
 
+import project.csc427.core.component.Component;
 import javafx.scene.canvas.GraphicsContext;
 
 public interface Layout extends Component {

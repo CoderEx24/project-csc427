@@ -1,5 +1,7 @@
 package project.csc427.core;
 
+import project.csc427.core.component.*;
+import project.csc427.core.component.layout.*;
 import java.util.Collections;
 
 public final class ComponentBuilder {
