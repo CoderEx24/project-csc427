@@ -43,4 +43,9 @@ public final class Textbox extends BasicComponent {
     public String getText() {
         return value;
     }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visitTextbox(this);
+    }
 }

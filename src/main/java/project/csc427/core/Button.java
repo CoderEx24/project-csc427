@@ -48,4 +48,9 @@ public final class Button extends BasicComponent {
     public String getText() {
         return value;
     }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visitButton(this);
+    }
 }

@@ -30,5 +30,14 @@ public final class Label extends BasicComponent {
   public void setText(String v) {
     value = v;
   }
+  public String getText() {
+    return value;
+  }
+
+  @Override
+  public void accept(Visitor visitor) {
+    visitor.visitLabel(this);
+  }
+
 }
 

@@ -54,4 +54,8 @@ public final class VBoxLayout extends BasicComponent implements Layout {
 
         return true;
     }
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visitVBoxLayout(this);
+    }
 }
