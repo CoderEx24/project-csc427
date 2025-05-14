@@ -147,4 +147,22 @@ public class MainController {
         gc.clearRect(0, 0, 500, 500);
         componentTreeRoot.draw(gc);
     }
+
+    @FXML
+    void onNewHBoxLayout(ActionEvent evt) {
+        var root = componentTree.getSelectionModel().getSelectedItem();
+        root = root == null ? componentTree.getRoot() : root;
+
+        String name = "VBoxLayout" + vboxCounter++;
+        HBoxLayout comp = new HBoxLayout(name, root.getValue());
+        comp.setSize(300, 100);
+        
+        root.getValue().addChild(name, comp);
+        root.getChildren().add(new TreeItem<Component>(comp));
+
+        var gc = canvas.getGraphicsContext2D();
+
+        gc.clearRect(0, 0, 500, 500);
+        componentTreeRoot.draw(gc);
+    }
 }
