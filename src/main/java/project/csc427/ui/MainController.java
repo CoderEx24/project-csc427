@@ -2,7 +2,10 @@ package project.csc427.ui;
 
 import project.csc427.core.component.*;
 import project.csc427.core.component.layout.*;
+import project.csc427.core.export.*;
+import static project.csc427.Main.getExportFile;
 
+import java.io.File;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.TreeView;
@@ -11,6 +14,7 @@ import javafx.scene.control.TreeCell;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.Node;
 import javafx.event.ActionEvent;
+import javafx.application.Application;
 
 public class MainController {
     
@@ -133,6 +137,18 @@ public class MainController {
 
         gc.clearRect(0, 0, 500, 500);
         componentTreeRoot.draw(gc);
+    }
+
+    @FXML
+    void onExport(ActionEvent evt) {
+        File f = getExportFile();
+        if (f == null)
+            return;
+
+        Exporter exporter = new XMLExporter();
+        componentTreeRoot.accept(exporter);
+
+        exporter.exportToFile(f.getPath());
     }
 
 }
