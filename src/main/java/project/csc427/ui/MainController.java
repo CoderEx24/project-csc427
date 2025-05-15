@@ -135,7 +135,7 @@ public class MainController {
 
         var gc = canvas.getGraphicsContext2D();
 
-        gc.clearRect(0, 0, 500, 500);
+        gc.clearRect(0, 0, 1200, 1200);
         componentTreeRoot.draw(gc);
     }
 
