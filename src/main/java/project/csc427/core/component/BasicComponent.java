@@ -1,4 +1,4 @@
-package project.csc427.core;
+package project.csc427.core.component;
 
 public abstract class BasicComponent implements Component {
   private float width, height, x, y;

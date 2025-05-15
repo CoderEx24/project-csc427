@@ -1,5 +1,7 @@
-package project.csc427.core;
+package project.csc427.core.component.layout;
 
+import project.csc427.core.component.*;
+import project.csc427.core.export.Exporter;
 import java.util.Iterator;
 import java.util.SequencedMap;
 import java.util.LinkedHashMap;
