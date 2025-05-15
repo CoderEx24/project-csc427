@@ -1,5 +1,7 @@
 package project.csc427.core;
 
+import java.util.stream.Collectors;
+
 public class XMLExporter implements Exporter {
     private StringBuilder xmlOutput;
     private int indentLevel;
@@ -73,21 +75,43 @@ public class XMLExporter implements Exporter {
         xmlOutput.append(getIndent()).append("</VBoxLayout>\n");
     }
 
-    @Override 
+    @Override
     public void visit(GridLayout grid) {
-
+        float[] position = grid.getPosition();
+        float[] size = grid.getSize();
+        xmlOutput.append(getIndent())
+                .append(String.format("<GridLayout name=\"%s\" x=\"%.2f\" y=\"%.2f\" width=\"%.2f\" height=\"%.2f\" rows=\"%d\" columns=\"%d\">\n",
+                        grid.getName(), position[0], position[1], size[0], size[1], grid.getRows(), grid.getColumns()));
+        indentLevel++;
+        for (var it = grid.iterator(); it.hasNext(); ) {
+            var child = it.next();
+            child.accept(this);
+        }
+        indentLevel--;
+        xmlOutput.append(getIndent()).append("</GridLayout>\n");
     }
 
-    @Override 
+    @Override
     public void visit(Listbox lbox) {
-
+        float[] position = lbox.getPosition();
+        float[] size = lbox.getSize();
+        String items = lbox.getItems().stream().collect(Collectors.joining(","));
+        xmlOutput.append(getIndent())
+                .append(String.format("<Listbox name=\"%s\" x=\"%.2f\" y=\"%.2f\" width=\"%.2f\" height=\"%.2f\" items=\"%s\" selectedIndex=\"%d\"/>\n",
+                        lbox.getName(), position[0], position[1], size[0], size[1], items, lbox.getSelectedIndex()));
     }
 
-    @Override 
+    @Override
     public void visit(Dropdown dd) {
-
+        float[] position = dd.getPosition();
+        float[] size = dd.getSize();
+        String options = String.join(",", dd.getOptions());
+        xmlOutput.append(getIndent())
+                .append(String.format("<Dropdown name=\"%s\" x=\"%.2f\" y=\"%.2f\" width=\"%.2f\" height=\"%.2f\" options=\"%s\"/>\n",
+                        dd.getName(), position[0], position[1], size[0], size[1], options));
     }
 
+    @Override
     public String exportToString() {
         return xmlOutput.toString();
     }
